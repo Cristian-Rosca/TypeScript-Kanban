@@ -11,13 +11,21 @@ const App: React.FC = () => {
   const [toDo, setToDo] = useState<string>(" ");
   const [toDoList, setToDoList] = useState<ToDo[]>([]);
 
-  console.log(toDo);
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (toDo) {
+      setToDoList([...toDoList, {id: Date.now(), toDo, isDone: false} ])
+      setToDo("");
+    }
+  };
+
+  console.log('your toDos: ', toDoList);
   
 
   return (
     <div className="App">
       <span className="heading">Taskify</span>
-      <InputField toDo={toDo} setToDo={setToDo}/>
+      <InputField toDo={toDo} setToDo={setToDo} handleAdd={handleAdd}/>
     </div>
   );
 }
