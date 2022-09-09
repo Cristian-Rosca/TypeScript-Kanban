@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import internal from 'stream';
 import './App.css';
 import InputField from './components/InputField';
+import ToDoList from './components/ToDoList';
 import { ToDo } from './model';
 
 
@@ -9,23 +10,24 @@ import { ToDo } from './model';
 const App: React.FC = () => {
 
   const [toDo, setToDo] = useState<string>(" ");
-  const [toDoList, setToDoList] = useState<ToDo[]>([]);
+  const [toDos, setToDos] = useState<ToDo[]>([]);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault()
     if (toDo) {
-      setToDoList([...toDoList, {id: Date.now(), toDo, isDone: false} ])
+      setToDos([...toDos, {id: Date.now(), toDo, isDone: false} ])
       setToDo("");
     }
   };
 
-  console.log('your toDos: ', toDoList);
+  console.log('your toDos: ', toDos);
   
 
   return (
     <div className="App">
       <span className="heading">Taskify</span>
       <InputField toDo={toDo} setToDo={setToDo} handleAdd={handleAdd}/>
+      <ToDoList toDos={toDos} setToDos={setToDos}/>
     </div>
   );
 }
