@@ -3,17 +3,18 @@ import { ToDo } from "../model";
 import {AiFillDelete, AiFillEdit} from 'react-icons/ai'
 import {MdDone} from 'react-icons/md'
 import "./styles.css"
-import ToDoList from "./ToDoList";
+import { Draggable } from "react-beautiful-dnd";
 
 interface Props {
     toDo : ToDo;
     toDos : ToDo[];
     setToDos: React.Dispatch<React.SetStateAction<ToDo[]>>;
+    index: number;
 }
 
 
 
-const SingleToDo: React.FC<Props> = ({toDo, toDos, setToDos}) => {
+const SingleToDo: React.FC<Props> = ({index, toDo, toDos, setToDos}) => {
 
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const [editToDo, setEditToDo] = useState<string>(toDo.toDo)
@@ -43,7 +44,14 @@ const SingleToDo: React.FC<Props> = ({toDo, toDos, setToDos}) => {
     
 
     return (
-        <form className="toDos__single" onSubmit={(e) => handleEdit(e, toDo.id)}>
+        <Draggable draggableId={toDo.id.toString()} index={index}>
+            {
+                (provided) => (
+                    <form className="toDos__single" 
+                    onSubmit={(e) => handleEdit(e, toDo.id)} 
+                    {...provided.draggableProps} 
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef} >
             {
                 isEdit? (
                     <input ref={inputRef} value={editToDo} onChange={(e) => setEditToDo(e.target.value)} className='toDos__single--text'/>
@@ -74,6 +82,12 @@ const SingleToDo: React.FC<Props> = ({toDo, toDos, setToDos}) => {
             </div>
 
         </form>
+                )
+            }
+
+            
+        </Draggable>
+        
     )
 }
 
