@@ -7,6 +7,8 @@ import "./styles.css"
 interface Props {
     toDos : ToDo[];
     setToDos: React.Dispatch<React.SetStateAction<ToDo[]>>;
+    completedToDos: ToDo[];
+    setCompletedToDos: React.Dispatch<React.SetStateAction<ToDo[]>>;
     
 }
 

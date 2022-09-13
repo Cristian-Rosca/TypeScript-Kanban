@@ -11,6 +11,7 @@ const App: React.FC = () => {
 
   const [toDo, setToDo] = useState<string>(" ");
   const [toDos, setToDos] = useState<ToDo[]>([]);
+  const [completedToDos, setCompletedToDos] = useState<ToDo[]>([])
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,7 +28,7 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">Tasklist</span>
       <InputField toDo={toDo} setToDo={setToDo} handleAdd={handleAdd}/>
-      <ToDoList toDos={toDos} setToDos={setToDos}/>
+      <ToDoList toDos={toDos} setToDos={setToDos} completedToDos={completedToDos} setCompletedToDos={setCompletedToDos} />
     </div>
   );
 }
